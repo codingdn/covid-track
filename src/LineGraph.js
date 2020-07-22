@@ -64,7 +64,7 @@ const buildChartData = (data, casesType) => {
   return chartData;
 };
 
-function LineGraph() {
+function LineGraph({casesType = "cases"}) {
   const [data, setData] = useState({});
 
   useEffect(() => {
@@ -80,11 +80,10 @@ function LineGraph() {
         });
     };
     fetchData();
-  }, []);
+  }, [casesType]);
 
   return (
     <div>
-      <h1>Line Graph</h1>
       {data?.length > 0 && (
         <Line
           options={options}
