@@ -9,11 +9,17 @@ import {
 import "./App.css";
 import InfoBox from "./InfoBox";
 import Map from "./Map";
-import Table from './Table'
+import Table from "./Table";
+import { sortData } from "./utils";
+import LineGraph from "./LineGraph";
+
+/**
+ * Add a data/time compoennt on top of the table component
+ */
 
 function App() {
   const [countries, setCountries] = useState([]);
-  const [country, setCountry] = useState('worldwide');
+  const [country, setCountry] = useState("worldwide");
   const [countryInfo, setCountryInfo] = useState({});
   const [tableData, setTableData] = useState([]);
 
@@ -21,7 +27,7 @@ function App() {
     fetch("https://disease.sh/v3/covid-19/all")
       .then((response) => response.json())
       .then((data) => setCountryInfo(data));
-  },[]);
+  }, []);
 
   const onCountryChange = async (e) => {
     const countryCode = e.target.value;
@@ -51,14 +57,15 @@ function App() {
             name: country.country,
             value: country.countryInfo.iso2,
           }));
-          setTableData(data);
+
+          const sortedData = sortData(data);
+          setTableData(sortedData);
           setCountries(countries);
         });
     };
     getCountriesData();
   }, []);
 
-  
   return (
     <div className="app">
       <div className="app__left">
@@ -101,9 +108,10 @@ function App() {
       <Card className="app__right">
         <CardContent>
           <h3>Live Cases by Country</h3>
-          <Table countries={tableData}/>
+          <Table countries={tableData} />
           <h3>Worldwide New Cases</h3>
         </CardContent>
+        <LineGraph />
       </Card>
     </div>
   );
