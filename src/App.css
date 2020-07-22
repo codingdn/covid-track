@@ -34,3 +34,31 @@ body{
 .app__left{
   flex: 0.9;
 }
+
+.app__dropdown{
+  background-color: white;
+}
+
+.app__right{
+  display: flex;
+  flex-direction: column;
+}
+
+.app__right .MuiCardContent-root{
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+.app__graph{
+  flex-grow: 1;
+}
+
+.app__graphTitle{
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.app__header > h1{
+  font-weight: normal;
+}
